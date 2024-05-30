@@ -1,0 +1,76 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+}
+
+body {
+    background: url("https://i.pinimg.com/736x/3a/9a/f7/3a9af74307776e2a52e656f4e70a7e15.jpg");
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    overflow: hidden;
+}
+
+.wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 110vh;
+    background: rgba(39, 39, 39, 0.4);
+}
+
+/* Updated CSS Styling for Menu */
+.nav {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 60px;
+    /* Adjust height as needed */
+    background-color: #333;
+    /* Dark background color */
+    z-index: 1000;
+}
+
+.nav-logo p {
+    color: #fff;
+    /* White text color */
+    font-size: 24px;
+    font-weight: bold;
+}
+
+.nav-menu {
+    float: right;
+}
+
+.nav-menu ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.nav-menu ul li {
+    display: inline-block;
+    margin-left: 20px;
+    /* Adjust spacing between menu items */
+}
+
+.nav-menu ul li a {
+    display: block;
+    padding: 20px 10px;
+    /* Adjust padding as needed */
+    color: #fff;
+    /* White text color */
+    text-decoration: none;
+    transition: all 0.3s ease;
+}
+
+.nav-menu ul li a:hover {
+    background-color: #555;
+    /* Darker background color on hover */
+    border-radius: 5px;
+}
