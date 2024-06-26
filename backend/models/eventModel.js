@@ -1,6 +1,5 @@
 import mongoose from "mongoose";
 import userModel from "./userModel.js";
-//import time from console;
 
 // Define the Person schema
 const createeventSchema = new mongoose.Schema(

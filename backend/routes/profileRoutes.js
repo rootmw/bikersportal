@@ -1,8 +1,11 @@
 import express from "express";
+import multer from "multer";
 import userAuth from "../middlewares/authMiddleware.js";
-import { updateUserController } from "../controller/updateController.js";
+import { getProfile, updateProfile } from "../controller/profileController.js";
 
 const router = express.Router();
-router.put("/updateprofile", userAuth, updateUserController);
+router.get("/getprofile", userAuth, getProfile);
+
+router.put("/updateprofile", userAuth, updateProfile);
 
 export default router;

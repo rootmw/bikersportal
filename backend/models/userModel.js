@@ -2,69 +2,62 @@ import mongoose from "mongoose";
 import validator from "validator";
 import bcrypt from "bcrypt";
 import JWT from "jsonwebtoken";
-//schema
+
 const userSchema = new mongoose.Schema(
   {
-    firstname: {
-      type: String,
-      required: [true, "first name is required"],
-    },
-    lastname: {
-      type: String,
-      required: [true, "last name is required"],
-    },
+    firstname: { type: String, required: true },
+    lastname: { type: String, required: true },
     email: {
       type: String,
-      required: [true, "Email is required"],
+      required: true,
       unique: true,
       validate: validator.isEmail,
     },
-    password: {
-      type: String,
-      required: [true, "password is required"],
-      minlength: [6, "Password length should be greater than 6 character"],
-      select: true,
-    },
+    password: { type: String, required: true, minlength: 6, select: true },
     role: {
       type: String,
       required: true,
       enum: ["user", "creator"],
       default: "user",
     },
+    bio: {
+      type: String,
+      maxlength: 500,
+    },
+    username: {
+      type: String,
+      unique: true,
+      validate: validator.isAlphanumeric,
+    },
+    age: {
+      type: Number,
+    },
+    mobile_No: {
+      type: Number,
+    },
+    address: {
+      type: String,
+    },
   },
   { timestamps: true }
 );
 
 userSchema.pre("save", async function (next) {
-  const user = this;
-
-  //hash the password only if it has been modified (or is new)
-  if (!user.isModified("password")) return next();
+  if (!this.isModified("password")) return next();
 
   try {
-    //hash password generation
-    const hashedpassword = await bcrypt.genSalt(10);
-
-    //override the plain password with the hashed one
-    user.password = hashedpassword;
+    const salt = await bcrypt.genSalt(10);
+    this.password = await bcrypt.hash(this.password, salt);
     next();
   } catch (err) {
-    return next(err);
+    next(err);
   }
 });
 
 userSchema.methods.comparePassword = async function (userpassword) {
-  try {
-    //use bcrypt to compare the provided password with the hashed password
-    const isMatch = await bcrypt.compare(userpassword, this.password);
-    return isMatch;
-  } catch (err) {
-    throw err;
-  }
+  return await bcrypt.compare(userpassword, this.password);
 };
 
-//json webtoken
-//JSON WEBTOKEN
 userSchema.methods.generateAuthToken = function () {
   const tokenData = {
     _id: this._id,
@@ -72,10 +65,7 @@ userSchema.methods.generateAuthToken = function () {
     role: this.role,
     username: this.username,
   };
-  const token = JWT.sign(tokenData, process.env.JWT_SECRET, {
-    expiresIn: "1h",
-  });
-
-  return token;
+  return JWT.sign(tokenData, process.env.JWT_SECRET, { expiresIn: "1d" });
 };
+
 export default mongoose.model("User", userSchema);

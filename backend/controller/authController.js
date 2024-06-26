@@ -2,75 +2,97 @@ import userModel from "../models/userModel.js";
 
 export const registerController = async (req, res, next) => {
   const { firstname, lastname, email, password, role } = req.body;
-  //validate
 
+  // Validate
   if (!firstname) {
-    next("please provide first name");
+    return res.status(400).json({ message: "Please provide first name" });
   }
   if (!lastname) {
-    next("please provide last name");
+    return res.status(400).json({ message: "Please provide last name" });
   }
   if (!email) {
-    next("please provide email");
+    return res.status(400).json({ message: "Please provide email" });
   }
   if (!password) {
-    next("please provide password and greaterr than 6 characters");
-  }
-  if (!role) {
-    next("please provide your role");
-  }
-
-  const existingUser = await userModel.findOne({ email });
-  if (existingUser) {
-    next("Email already registered Please Login");
+    return res
+      .status(400)
+      .json({ message: "Please provide password greater than 6 characters" });
   }
   if (password.length < 6) {
-    next("password should be greater than 6 characters");
+    return res
+      .status(400)
+      .json({ message: "Password should be greater than 6 characters" });
   }
-  const user = await userModel.create({
-    firstname,
-    lastname,
-    email,
-    password,
-    role,
-  });
-  const token = user.generateAuthToken();
-  res.status(201).send({
-    success: true,
-    message: "user created successfully",
-    user: {
-      firstname: user.firstname,
-      lastname: user.lastname,
-      email: user.email,
-      role: user.role,
-    },
-    token,
-  });
+  if (!role) {
+    return res.status(400).json({ message: "Please provide your role" });
+  }
+
+  try {
+    const existingUser = await userModel.findOne({ email });
+    if (existingUser) {
+      return res
+        .status(400)
+        .json({ message: "Email already registered. Please login" });
+    }
+
+    const user = await userModel.create({
+      firstname,
+      lastname,
+      email,
+      password,
+      role,
+    });
+    const token = user.generateAuthToken();
+    res.status(201).send({
+      success: true,
+      message: "User created successfully",
+      user: {
+        firstname: user.firstname,
+        lastname: user.lastname,
+        email: user.email,
+        role: user.role,
+      },
+      token,
+    });
+  } catch (error) {
+    next(error); // Pass errors to the error middleware
+  }
 };
-export default registerController;
 
 export const loginController = async (req, res, next) => {
   const { email, password } = req.body;
-  //validation
+
+  // Validation
   if (!email || !password) {
-    next("Please Provide All Fields");
+    return res.status(400).json({ message: "Please provide all fields" });
   }
-  //find user by email
-  const user = await userModel.findOne({ email }).select("+password");
-  if (!user) {
-    next("Invalid Useraname or password");
+
+  try {
+    const user = await userModel.findOne({ email }).select("+password");
+    if (!user) {
+      return res.status(400).json({ message: "Invalid username or password" });
+    }
+
+    const isMatch = await user.comparePassword(password);
+    if (!isMatch) {
+      return res.status(400).json({ message: "Invalid username or password" });
+    }
+
+    user.password = undefined;
+    const token = user.generateAuthToken();
+    res.status(200).json({
+      success: true,
+      message: "Login successfully",
+      user,
+      token,
+    });
+  } catch (error) {
+    next(error); // Pass errors to the error middleware
   }
-  //compare password
-  const isMatch = await user.comparePassword(password);
-  if (!isMatch) {
-    next("Invalid Useraname or password");
-  }
-  user.password = undefined;
-  const token = user.generateAuthToken();
-  res.status(200).json({
-    success: true,
-    message: "Login SUccessfully",
-    user,
-    token,
-  });
 };
+
+export const logoutController = (req, res) => {
+  res.cookie("token", "", { expires: new Date(0) });
+  res.status(200).json({ message: "Logged out successfully" });
+};
+export default { registerController, loginController, logoutController };

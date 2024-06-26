@@ -1,27 +1,31 @@
 import JWT from "jsonwebtoken";
+import userModel from "../models/userModel.js";
 
 const userAuth = async (req, res, next) => {
-  const authHeader = req.headers.authorization;
-  if (!authHeader || !authHeader.startsWith("Bearer")) {
-    next("Auth Failed");
+  let token;
+  if (
+    req.headers.authorization &&
+    req.headers.authorization.startsWith("Bearer")
+  ) {
+    try {
+      token = req.headers.authorization.split(" ")[1];
+      const decoded = JWT.verify(token, process.env.JWT_SECRET);
+      req.user = await userModel.findById(decoded._id).select("-password");
+      if (!req.user) {
+        return res
+          .status(401)
+          .json({ message: "Not authorized, user not found" });
+      }
+      next();
+    } catch (error) {
+      console.error(error);
+      return res.status(401).json({ message: "Not authorized, token failed" });
+    }
   }
-  const token = authHeader.split(" ")[1];
-  try {
-    const payload = JWT.verify(token, process.env.JWT_SECRET);
-    req.user = { userId: payload.userId };
-    next();
-  } catch (error) {
-    next("Auth Failed");
+
+  if (!token) {
+    return res.status(401).json({ message: "Not authorized, no token" });
   }
 };
 
 export default userAuth;
-export const logout = (req, res) => {
-  // Clear the JWT token from client-side storage (e.g., cookies, local storage)
-  res.clearCookie("token"); // Clear token cookie, if using cookies for token storage
-
-  // Optionally, you can also invalidate the token on the server-side (e.g., using a blacklist)
-  // You can maintain a blacklist of tokens in a database or in-memory cache
-
-  res.status(200).json({ message: "Logout successful" });
-};

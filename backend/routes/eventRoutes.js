@@ -1,21 +1,33 @@
 import express from "express";
-import eventController, {
-  checkUserRole,
-  updateJobController,
-  getAllEventsController,
-  deleteeventController,
+import {
+  createEvent,
+  deleteEvent,
+  getAllEvents,
+  getEventDetails,
+  getJoinedEvents,
+  getMyEvents,
+  getPopularEvents,
+  joinEvent,
+  updateEvent,
 } from "./../controller/eventController.js";
 import userAuth from "../middlewares/authMiddleware.js";
 
 const router = express.Router();
-router.post("/createevent", userAuth, checkUserRole, eventController);
+router.get("/getall", userAuth, getAllEvents);
+router.post("/createevent", userAuth, createEvent);
 
-router.get("/getallevents", userAuth, getAllEventsController);
+router.get("/me", userAuth, getMyEvents);
 
+router.get("/:id", userAuth, getEventDetails);
+
+router.get("/joined", userAuth, getJoinedEvents);
 //update event
-router.patch("/updateevent/:id", userAuth, updateJobController);
-
+router.put("/:id", userAuth, updateEvent);
 //delete event
-router.delete("/deleteevent/:id", userAuth, deleteeventController);
+router.delete("/:id", userAuth, deleteEvent);
+//join event
+router.post("/join/:eventId", userAuth, joinEvent);
+
+router.get("/popular", userAuth, getPopularEvents);
 
 export default router;
