@@ -1,5 +1,4 @@
 import mongoose from "mongoose";
-import { GridFsStorage } from "multer-gridfs-storage";
 import dotenv from "dotenv";
 
 dotenv.config();

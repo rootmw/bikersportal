@@ -153,6 +153,15 @@ p {
 
 }
 
+.authPage .container form label {
+  font-weight: bold;
+}
+
+.authPage .container-1 form label {
+  font-weight: bold;
+}
+
+
 .authPage .container form .inputTag {
   display: flex;
   flex-direction: column;

@@ -15,10 +15,9 @@ const Blogs = () => {
   useEffect(() => {
     const fetchBlogs = async () => {
       try {
-        const token = localStorage.getItem('token');
         const response = await axios.get('http://localhost:8080/api/v1/blog/blogs', {
+          withCredentials: true,
           headers: {
-            'Authorization': `Bearer ${token}`,
             'Cache-Control': 'no-cache',
             'pragma': 'no-cache',
             'Expires': '0'
@@ -45,10 +44,9 @@ const Blogs = () => {
   const handlePost = async (e) => {
     e.preventDefault();
     try {
-      const token = localStorage.getItem('token');
       const response = await axios.post('http://localhost:8080/api/v1/blog/blogs', formData, {
+        withCredentials: true,
         headers: {
-          'Authorization': `Bearer ${token}`,
           'Cache-Control': 'no-cache',
           'pragma': 'no-cache',
           'Expires': '0'
@@ -64,10 +62,9 @@ const Blogs = () => {
 
   const handleLike = async (blogId) => {
     try {
-      const token = localStorage.getItem('token');
       const response = await axios.post(`http://localhost:8080/api/v1/blog/blogs/${blogId}/like`, {}, {
+        withCredentials: true,
         headers: {
-          'Authorization': `Bearer ${token}`,
           'Cache-Control': 'no-cache',
           'pragma': 'no-cache',
           'Expires': '0'
@@ -82,10 +79,9 @@ const Blogs = () => {
 
   const handleDislike = async (blogId) => {
     try {
-      const token = localStorage.getItem('token');
       const response = await axios.post(`http://localhost:8080/api/v1/blog/blogs/${blogId}/dislike`, {}, {
+        withCredentials: true,
         headers: {
-          'Authorization': `Bearer ${token}`,
           'Cache-Control': 'no-cache',
           'pragma': 'no-cache',
           'Expires': '0'

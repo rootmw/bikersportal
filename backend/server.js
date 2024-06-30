@@ -15,6 +15,7 @@ import profileRoutes from "./routes/profileRoutes.js";
 import eventRoutes from "./routes/eventRoutes.js";
 import blogRoutes from "./routes/blogRoutes.js";
 import userAuth from "./middlewares/authMiddleware.js";
+import cookieParser from "cookie-parser";
 
 //Dot ENV config
 dotenv.config();
@@ -33,6 +34,7 @@ app.use(
 
 //middleware
 app.use(express.json());
+app.use(cookieParser());
 
 //routes
 app.use(`/api/v1/test`, testRoutes);

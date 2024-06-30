@@ -1,4 +1,5 @@
 import userModel from "../models/userModel.js";
+import jwt from "jsonwebtoken";
 
 export const registerController = async (req, res, next) => {
   const { firstname, lastname, email, password, role } = req.body;
@@ -80,6 +81,11 @@ export const loginController = async (req, res, next) => {
 
     user.password = undefined;
     const token = user.generateAuthToken();
+    res.cookie("token", token, {
+      httpOnly: true,
+      secure: process.env.NODE_ENV === "production", // use secure cookies in production
+      maxAge: 24 * 60 * 60 * 1000, // 1 day
+    });
     res.status(200).json({
       success: true,
       message: "Login successfully",
