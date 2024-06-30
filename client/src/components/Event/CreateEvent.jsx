@@ -32,7 +32,7 @@ const CreateEvent = () => {
       };
 
       const { data } = await axios.post(
-        "http://localhost:8080/api/v1/event/createevent",
+        "https://bikersportal-backend1.onrender.com/api/v1/event/createevent",
         {
           eventname,
           eventdescription,

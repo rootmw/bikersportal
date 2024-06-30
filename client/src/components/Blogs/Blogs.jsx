@@ -15,7 +15,7 @@ const Blogs = () => {
   useEffect(() => {
     const fetchBlogs = async () => {
       try {
-        const response = await axios.get('http://localhost:8080/api/v1/blog/blogs', {
+        const response = await axios.get('https://bikersportal-backend1.onrender.com/api/v1/blog/blogs', {
           withCredentials: true,
           headers: {
             'Cache-Control': 'no-cache',
@@ -44,7 +44,7 @@ const Blogs = () => {
   const handlePost = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.post('http://localhost:8080/api/v1/blog/blogs', formData, {
+      const response = await axios.post('https://bikersportal-backend1.onrender.com/api/v1/blog/blogs', formData, {
         withCredentials: true,
         headers: {
           'Cache-Control': 'no-cache',
@@ -62,7 +62,7 @@ const Blogs = () => {
 
   const handleLike = async (blogId) => {
     try {
-      const response = await axios.post(`http://localhost:8080/api/v1/blog/blogs/${blogId}/like`, {}, {
+      const response = await axios.post(`https://bikersportal-backend1.onrender.com/api/v1/blog/blogs/${blogId}/like`, {}, {
         withCredentials: true,
         headers: {
           'Cache-Control': 'no-cache',
@@ -79,7 +79,7 @@ const Blogs = () => {
 
   const handleDislike = async (blogId) => {
     try {
-      const response = await axios.post(`http://localhost:8080/api/v1/blog/blogs/${blogId}/dislike`, {}, {
+      const response = await axios.post(`https://bikersportal-backend1.onrender.com/api/v1/blog/blogs/${blogId}/dislike`, {}, {
         withCredentials: true,
         headers: {
           'Cache-Control': 'no-cache',

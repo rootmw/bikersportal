@@ -7,7 +7,7 @@ const PopularCategories = () => {
   useEffect(() => {
     const fetchpopularEvents = async () => {
       try {
-        const response = await axios.get("http://localhost:8080/api/v1/event/popular");
+        const response = await axios.get("https://bikersportal-backend1.onrender.com/api/v1/event/popular");
         setPopularEvents(response.data.data);
       } catch (error) {
         console.error("Error fetching popular events:", error);

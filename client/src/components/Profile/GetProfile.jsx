@@ -11,7 +11,7 @@ const GetProfile = () => {
   useEffect(() => {
     const fetchProfile = async () => {
       try {
-        const {data} = await axios.get("http://localhost:8080/api/v1/profile/getprofile", {
+        const {data} = await axios.get("https://bikersportal-backend1.onrender.com/api/v1/profile/getprofile", {
           headers: {
             Authorization: `Bearer ${localStorage.getItem("token")}`,
           },

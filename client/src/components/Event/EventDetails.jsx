@@ -19,7 +19,7 @@ const EventDetails = () => {
     const fetchEventDetails = async () => {
       try {
         const token = localStorage.getItem('token')
-        const response = await axios.get(`http://localhost:8080/api/v1/event/${id}`, {
+        const response = await axios.get(`https://bikersportal-backend1.onrender.com/api/v1/event/${id}`, {
           headers: {
             'Authorization':`Bearer ${token}`,
             'Cache-Control': 'no-cache',
@@ -50,7 +50,7 @@ const EventDetails = () => {
     e.preventDefault();
     try {
       const token = localStorage.getItem('token');
-      const response = await axios.post(`http://localhost:8080/api/v1/event/${id}/join`, formData, {
+      const response = await axios.post(`https://bikersportal-backend1.onrender.com/api/v1/event/${id}/join`, formData, {
         headers: {
           'Authorization':`Bearer ${token}`,
           'Cache-Control': 'no-cache',
@@ -72,7 +72,7 @@ const EventDetails = () => {
     e.preventDefault();
     try {
       const token = localStorage.getItem('token');
-      const response = await axios.put(`http://localhost:8080/api/v1/event/update/${id}`, updateData, {
+      const response = await axios.put(`https://bikersportal-backend1.onrender.com/api/v1/event/update/${id}`, updateData, {
         headers: {
           'Authorization': `Bearer ${token}`,
           'Cache-Control': 'no-cache',
@@ -91,7 +91,7 @@ const EventDetails = () => {
   const handleDelete = async () => {
     try {
       const token = localStorage.getItem('token');
-      const response = await axios.delete(`http://localhost:8080/api/v1/event/delete/${id}`, {
+      const response = await axios.delete(`https://bikersportal-backend1.onrender.com/api/v1/event/delete/${id}`, {
         headers: {
           'Authorization': `Bearer ${token}`,
           'Cache-Control': 'no-cache',
