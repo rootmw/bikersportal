@@ -36,12 +36,28 @@ export const createBlog = async (req, res) => {
 
 export const likeBlog = async (req, res) => {
   try {
-    const blog = await Blog.findById(req.params.id);
+    const blog = await Blogs.findById(req.params.id);
     if (!blog) return res.status(404).json({ message: "Blog not found" });
 
+    if (blog.likedBy.includes(req.user._id)) {
+      return res
+        .status(400)
+        .json({ message: "You have already liked this blog" });
+    }
+
     blog.likes += 1;
+    blog.likedBy.push(req.user._id);
+    if (blog.dislikedBy.includes(req.user._id)) {
+      blog.dislikes -= 1;
+      blog.dislikedBy.pull(req.user._id);
+    }
     await blog.save();
-    res.json({ message: "Blog liked", likes: blog.likes });
+
+    res.json({
+      message: "Blog liked",
+      likes: blog.likes,
+      dislikes: blog.dislikes,
+    });
   } catch (error) {
     res.status(500).json({ message: "Server error" });
   }
@@ -49,12 +65,28 @@ export const likeBlog = async (req, res) => {
 
 export const dislikeBlog = async (req, res) => {
   try {
-    const blog = await Blog.findById(req.params.id);
+    const blog = await Blogs.findById(req.params.id);
     if (!blog) return res.status(404).json({ message: "Blog not found" });
 
+    if (blog.dislikedBy.includes(req.user._id)) {
+      return res
+        .status(400)
+        .json({ message: "You have already disliked this blog" });
+    }
+
     blog.dislikes += 1;
+    blog.dislikedBy.push(req.user._id);
+    if (blog.likedBy.includes(req.user._id)) {
+      blog.likes -= 1;
+      blog.likedBy.pull(req.user._id);
+    }
     await blog.save();
-    res.json({ message: "Blog disliked", dislikes: blog.dislikes });
+
+    res.json({
+      message: "Blog disliked",
+      likes: blog.likes,
+      dislikes: blog.dislikes,
+    });
   } catch (error) {
     res.status(500).json({ message: "Server error" });
   }

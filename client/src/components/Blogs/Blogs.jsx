@@ -65,7 +65,7 @@ const Blogs = () => {
   const handleLike = async (blogId) => {
     try {
       const token = localStorage.getItem('token');
-      await axios.post(`http://localhost:8080/api/v1/blog/blogs/${blogId}/like`, {}, {
+      const response = await axios.post(`http://localhost:8080/api/v1/blog/blogs/${blogId}/like`, {}, {
         headers: {
           'Authorization': `Bearer ${token}`,
           'Cache-Control': 'no-cache',
@@ -73,16 +73,17 @@ const Blogs = () => {
           'Expires': '0'
         }
       });
-      setBlogs((prevBlogs) => prevBlogs.map(blog => blog._id === blogId ? { ...blog, likes: blog.likes + 1 } : blog));
+      toast.success(response.data.message);
+      setBlogs((prevBlogs) => prevBlogs.map(blog => blog._id === blogId ? { ...blog, likes: blog.likes + 1, dislikes: blog.dislikes } : blog));
     } catch (error) {
-      console.error("Error liking blog:", error);
+      toast.error(error.response.data.message);
     }
   };
 
   const handleDislike = async (blogId) => {
     try {
       const token = localStorage.getItem('token');
-      await axios.post(`http://localhost:8080/api/v1/blog/blogs/${blogId}/dislike`, {}, {
+      const response = await axios.post(`http://localhost:8080/api/v1/blog/blogs/${blogId}/dislike`, {}, {
         headers: {
           'Authorization': `Bearer ${token}`,
           'Cache-Control': 'no-cache',
@@ -90,9 +91,10 @@ const Blogs = () => {
           'Expires': '0'
         }
       });
-      setBlogs((prevBlogs) => prevBlogs.map(blog => blog._id === blogId ? { ...blog, dislikes: blog.dislikes + 1 } : blog));
+      toast.success(response.data.message);
+      setBlogs((prevBlogs) => prevBlogs.map(blog => blog._id === blogId ? { ...blog, dislikes: blog.dislikes + 1, likes: blog.likes } : blog));
     } catch (error) {
-      console.error("Error disliking blog:", error);
+      toast.error(error.response.data.message);
     }
   };
 
@@ -107,10 +109,10 @@ const Blogs = () => {
               <p>Author: {blog.author.firstname} {blog.author.lastname}</p>
               <p>Date: {new Date(blog.createdAt).toLocaleDateString()}</p>
               <div className="blog-actions">
-                <button onClick={() => handleLike(blog._id)}>
+                <button id="btn-like" onClick={() => handleLike(blog._id)}>
                   <FontAwesomeIcon icon={faThumbsUp} /> {blog.likes}
                 </button>
-                <button onClick={() => handleDislike(blog._id)}>
+                <button id="btn-dislike" onClick={() => handleDislike(blog._id)}>
                   <FontAwesomeIcon icon={faThumbsDown} /> {blog.dislikes}
                 </button>
               </div>
