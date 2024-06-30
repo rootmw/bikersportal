@@ -67,7 +67,7 @@ const Navbar = () => {
               {user && user.role === "user" && (
                 <>
                 <li>
-                  <Link to={"/applications/me"} onClick={() => { setShow(false); setDropdown(false); }}>
+                  <Link to={"/joined"} onClick={() => { setShow(false); setDropdown(false); }}>
                     MY JOINED EVENTS
                   </Link>
                 </li>

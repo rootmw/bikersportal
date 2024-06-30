@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
-import { useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 const MyEvents = () => {
   const [Myevents, setMyEvents] = useState([]);
-  const navigate = useNavigate();
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
 
   useEffect(() => {
     const fetchMyEvents = async () => {
@@ -22,15 +23,21 @@ const MyEvents = () => {
         setMyEvents(response.data.events); 
       } catch (error) {
         console.error("Error fetching events:", error);
+        setError(error);
+      } finally {
+        setLoading(false);
       }
     };
 
     fetchMyEvents();
   }, []);
+  if (loading) {
+    return <div>Loading...</div>;
+  }
 
-  const handleDetails = (eventId) => {
-    navigate(`/event/${eventId}`);
-  };
+  if (error) {
+    return <div>Error fetching events: {error.message}</div>;
+  }
 
   return (
     <div className="my-events">
@@ -40,11 +47,10 @@ const MyEvents = () => {
           Myevents.map((event) => (
             <div className="card" key={event._id}>
               <div className="card-body">
-                <h5 className="card-title">{event.name}</h5>
+                <h5 className="card-title">
+                <Link to={`/event/${event._id}`}>{event.eventname}</Link>
+                </h5>
                 <p className="card-text">{event.description}</p>
-                <button onClick={() => handleDetails(event._id)} className="btn btn-primary">
-                  Get Details
-                </button>
               </div>
             </div>
           ))

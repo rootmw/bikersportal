@@ -110,7 +110,9 @@ export const updateEvent = async (req, res, next) => {
 
     await event.save();
 
-    res.status(200).json({ success: true, event });
+    res
+      .status(200)
+      .json({ success: true, message: "updated successfully", event });
   } catch (error) {
     next(error);
   }
@@ -133,7 +135,7 @@ export const deleteEvent = async (req, res, next) => {
       );
     }
 
-    await event.remove();
+    await event.deleteOne();
 
     res
       .status(200)
@@ -145,11 +147,11 @@ export const deleteEvent = async (req, res, next) => {
 
 export const joinEvent = async (req, res) => {
   try {
-    const { eventId } = req.params; // Correct destructuring of eventId from params
+    const { id } = req.params; // Correct destructuring of eventId from params
     const { _id: userId, username } = req.user; // Assuming user ID and username are available in req.user
 
     // Find the event by ID
-    const event = await eventModel.findById(eventId);
+    const event = await eventModel.findById(id);
 
     // Check if the event exists
     if (!event) {

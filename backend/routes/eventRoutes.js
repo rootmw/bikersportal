@@ -20,13 +20,13 @@ router.get("/me", userAuth, getMyEvents);
 
 router.get("/:id", userAuth, getEventDetails);
 
-router.get("/joined", userAuth, getJoinedEvents);
+router.get("/joined/:id", userAuth, getJoinedEvents);
 //update event
-router.put("/:id", userAuth, updateEvent);
+router.put("/update/:id", userAuth, updateEvent);
 //delete event
-router.delete("/:id", userAuth, deleteEvent);
+router.delete("/delete/:id", userAuth, deleteEvent);
 //join event
-router.post("/join/:eventId", userAuth, joinEvent);
+router.post("/:id/join", userAuth, joinEvent);
 
 router.get("/popular", userAuth, getPopularEvents);
 

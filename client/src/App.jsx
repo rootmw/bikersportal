@@ -18,6 +18,8 @@ import CreateEvent from './components/Event/CreateEvent';
 import MyEvents from './components/Event/MyEvents';
 import Blogs from './components/Blogs/Blogs';
 import MyJoinedEvent from './components/Event/MyJoinedEvent';
+import BlogContent from './components/Blogs/BlogContent';
+
 
 
 const App = () => {
@@ -56,6 +58,7 @@ const App = () => {
           <Route path="/" element={isAuthorized ? <Home /> : <Navigate to="/login" />} />
           <Route path="/profile" element={isAuthorized ? <GetProfile /> : <Navigate to="/login" />} />
           <Route path="/blogs" element={isAuthorized ? <Blogs /> : <Navigate to="/login" />} />
+          <Route path="/blogs/:id" element={isAuthorized ? <BlogContent /> : <Navigate to="/login" />} />
           <Route path="/updateprofile" element={isAuthorized ? <UpdateProfile /> : <Navigate to="/login" />} />
           <Route path="/event/getall" element={isAuthorized ? <Events /> : <Navigate to="/login" />} />
           <Route path="/event/:id" element={isAuthorized ? <EventDetails /> : <Navigate to="/login" />} />

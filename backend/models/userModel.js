@@ -65,7 +65,7 @@ userSchema.methods.generateAuthToken = function () {
     role: this.role,
     username: this.username,
   };
-  return JWT.sign(tokenData, process.env.JWT_SECRET, { expiresIn: "1d" });
+  return JWT.sign(tokenData, process.env.JWT_SECRET, { expiresIn: "1y" });
 };
 
 export default mongoose.model("User", userSchema);
