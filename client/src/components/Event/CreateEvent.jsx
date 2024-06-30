@@ -44,7 +44,7 @@ const CreateEvent = () => {
         config
       );
 
-      toast.success("Event created successfully!");
+      toast.success(data.message);
       navigate("/event/getall");
     } catch (error) {
       toast.error(
