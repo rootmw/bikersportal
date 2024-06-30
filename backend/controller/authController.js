@@ -44,6 +44,11 @@ export const registerController = async (req, res, next) => {
       role,
     });
     const token = user.generateAuthToken();
+    res.cookie("token", token, {
+      httpOnly: true,
+      secure: process.env.NODE_ENV === "production", // use secure cookies in production
+      maxAge: 24 * 60 * 60 * 1000, // 1 day
+    });
     res.status(201).send({
       success: true,
       message: "User created successfully",
