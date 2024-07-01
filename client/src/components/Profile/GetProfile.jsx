@@ -13,7 +13,7 @@ const GetProfile = () => {
       try {
         const {data} = await axios.get("https://bikersportal-backend1.onrender.com/api/v1/profile/getprofile", {
           headers: {
-            Authorization: `Bearer ${localStorage.getItem("token")}`,
+            Authorization: `Bearer ${localStorage.getItem('token')}`,
           },
           withCredentials: true,
         });
