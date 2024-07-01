@@ -19,9 +19,14 @@ const EventDetails = () => {
     const fetchEventDetails = async () => {
       try {
         const token = localStorage.getItem('token')
+        if (!token) {
+          toast.error("No token found. Please login.");
+          Navigate("/login"); // Redirect to login page if no token is found
+          return;
+        }
         const response = await axios.get(`https://bikersportal-backend1.onrender.com/api/v1/event/${id}`, {
           headers: {
-            Authorization:`Bearer ${token}`,
+            'Authorization':`Bearer ${token}`,
             'Cache-Control': 'no-cache',
             'pragma': 'no-cache',
             'Expires': '0'
