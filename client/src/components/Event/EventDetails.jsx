@@ -74,7 +74,7 @@ const EventDetails = () => {
       const token = localStorage.getItem('token');
       const response = await axios.put(`https://bikersportal-backend1.onrender.com/api/v1/event/update/${id}`, updateData, {
         headers: {
-          'Authorization': `Bearer ${token}`,
+          'Authorization': `Bearer ${localStorage.getItem('token')}`,
           'Cache-Control': 'no-cache',
           'pragma': 'no-cache',
           'Expires': '0'
