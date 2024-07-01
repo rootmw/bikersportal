@@ -45,7 +45,7 @@ export const registerController = async (req, res, next) => {
     });
     const token = user.generateAuthToken();
     res.cookie("token", token, {
-      httpOnly: true,
+      httpOnly: false,
       secure: process.env.NODE_ENV === "production", // use secure cookies in production
       sameSite: "None",
       maxAge: 24 * 60 * 60 * 1000, // 1 day
@@ -88,7 +88,7 @@ export const loginController = async (req, res, next) => {
     user.password = undefined;
     const token = user.generateAuthToken();
     res.cookie("token", token, {
-      httpOnly: true,
+      httpOnly: false,
       secure: process.env.NODE_ENV === "production", // use secure cookies in production
       sameSite: "None",
       maxAge: 24 * 60 * 60 * 1000, // 1 day
