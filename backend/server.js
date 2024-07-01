@@ -25,12 +25,12 @@ connectDB();
 
 //rest object
 const app = express();
-/*app.use(
+app.use(
   cors({
-    origin: "http://localhost:3000", // frontend URL
+    origin: "https://bikersportal-frontend.onrender.com", // frontend URL
     credentials: true, // to allow cookies and other credentials
   })
-);*/
+);
 
 //middleware
 app.use(express.json());
