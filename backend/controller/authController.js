@@ -47,7 +47,7 @@ export const registerController = async (req, res, next) => {
     res.cookie("token", token, {
       httpOnly: true,
       secure: process.env.NODE_ENV === "production", // use secure cookies in production
-      SameSite: "None",
+      sameSite: "None",
       maxAge: 24 * 60 * 60 * 1000, // 1 day
     });
     res.status(201).send({
@@ -90,7 +90,7 @@ export const loginController = async (req, res, next) => {
     res.cookie("token", token, {
       httpOnly: true,
       secure: process.env.NODE_ENV === "production", // use secure cookies in production
-      SameSite: "None",
+      sameSite: "None",
       maxAge: 24 * 60 * 60 * 1000, // 1 day
     });
     res.status(200).json({
