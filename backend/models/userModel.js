@@ -28,7 +28,7 @@ const userSchema = new mongoose.Schema(
       type: String,
       unique: true,
       validate: validator.isAlphanumeric,
-      required: false,
+      sparse: true,
     },
     age: {
       type: Number,
@@ -64,7 +64,6 @@ userSchema.methods.generateAuthToken = function () {
     _id: this._id,
     email: this.email,
     role: this.role,
-    username: this.username,
   };
   return JWT.sign(tokenData, process.env.JWT_SECRET, { expiresIn: "1y" });
 };
