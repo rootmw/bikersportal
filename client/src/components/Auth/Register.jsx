@@ -97,7 +97,7 @@ const Register = () => {
                 >
                   <option value="">Select Role</option>
                   <option value="user">User</option>
-                  <option value="Creator">Creator</option>
+                  <option value="creator">Creator</option>
                 </select>
                 <FaRegUser />
               </div>
