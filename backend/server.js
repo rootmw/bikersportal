@@ -27,8 +27,8 @@ connectDB();
 const app = express();
 app.use(
   cors({
-    origin: "https://bikersportal-frontend.onrender.com", // frontend URL
-    credentials: true, // to allow cookies and other credentials
+    origin: "https://bikersportal-frontend.onrender.com",
+    credentials: true,
   })
 );
 
