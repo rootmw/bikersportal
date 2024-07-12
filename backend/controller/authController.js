@@ -2,7 +2,7 @@ import userModel from "../models/userModel.js";
 import jwt from "jsonwebtoken";
 
 export const registerController = async (req, res, next) => {
-  const { firstname, lastname, email, password, role, username } = req.body;
+  const { firstname, lastname, email, password, role } = req.body;
 
   // Validate
   if (!firstname) {
@@ -42,7 +42,6 @@ export const registerController = async (req, res, next) => {
       email,
       password,
       role,
-      username: undefined,
     });
     const token = user.generateAuthToken();
     res.cookie("token", token, {
