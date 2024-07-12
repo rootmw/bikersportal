@@ -26,9 +26,8 @@ const EventDetails = () => {
         const response = await axios.get(`https://bikersportal-backend1.onrender.com/api/v1/event/${id}`, {
           headers: {
             'Authorization': `Bearer ${token}`,
-            // 'Cache-Control': 'no-cache',
-            // 'pragma': 'no-cache',
-            // 'Expires': '0'
+            'Cache-Control': 'no-cache',
+            'Expires': '0'
           }
         });
         setEventDetails(response.data.event);
@@ -59,7 +58,6 @@ const EventDetails = () => {
         headers: {
           'Authorization': `Bearer ${token}`,
           'Cache-Control': 'no-cache',
-          'pragma': 'no-cache',
           'Expires': '0'
         }
       });
@@ -82,7 +80,6 @@ const EventDetails = () => {
         headers: {
           'Authorization': `Bearer ${token}`,
           'Cache-Control': 'no-cache',
-          'pragma': 'no-cache',
           'Expires': '0'
         }
       });
@@ -101,7 +98,6 @@ const EventDetails = () => {
         headers: {
           'Authorization': `Bearer ${token}`,
           'Cache-Control': 'no-cache',
-          'pragma': 'no-cache',
           'Expires': '0'
         }
       });

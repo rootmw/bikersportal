@@ -12,10 +12,9 @@ const Events = () => {
         const token = localStorage.getItem('token');
         const response = await axios.get("https://bikersportal-backend1.onrender.com/api/v1/event/getall", {
           headers: {
-            Authorization: `Bearer ${token}`,
-            'Cache-Control': 'no-cache',
-            pragma: 'no-cache',
-            Expires: '0',
+            'Authorization': `Bearer ${token}`,
+            'Cache-Control': 'no-cache',            
+            'Expires': '0',
           },
           withCredentials: true,
         });
