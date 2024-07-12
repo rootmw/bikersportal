@@ -18,12 +18,12 @@ const EventDetails = () => {
   useEffect(() => {
     const fetchEventDetails = async () => {
       try {
-        const token = localStorage.getItem('token')
-        // if (!token) {
-        //   toast.error("No token found. Please login.");
-        //   Navigate("/login"); 
-        //   return;
-        // }
+        const token = localStorage.getItem("token")
+        if (!token) {
+          toast.error("No token found. Please login.");
+          Navigate("/login"); 
+          return;
+        }
         const response = await axios.get(`https://bikersportal-backend1.onrender.com/api/v1/event/${id}`, {
           headers: {
             'Authorization':`Bearer ${token}`,
@@ -40,7 +40,7 @@ const EventDetails = () => {
     };
 
     fetchEventDetails();
-  }, [id]);
+  }, [id,setuser]);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
