@@ -25,10 +25,10 @@ const EventDetails = () => {
         }
         const response = await axios.get(`https://bikersportal-backend1.onrender.com/api/v1/event/${id}`, {
           headers: {
-            'Authorization': `Bearer ${token}`,
+            Authorization: `Bearer ${token}`,
             'Cache-Control': 'no-cache',
-            'pragma': 'no-cache',
-            'Expires': '0'
+            pragma: 'no-cache',
+            Expires: '0'
           }
         });
         setEventDetails(response.data.event);
