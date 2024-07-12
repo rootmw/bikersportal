@@ -28,7 +28,7 @@ const userSchema = new mongoose.Schema(
       type: String,
       unique: true,
       validate: validator.isAlphanumeric,
-      sparse: true,
+      required: false,
     },
     age: {
       type: Number,
