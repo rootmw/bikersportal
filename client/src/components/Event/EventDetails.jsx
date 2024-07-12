@@ -32,7 +32,7 @@ const EventDetails = () => {
             'Expires': '0'
           }
         });
-        setEventDetails(response.data.event);
+        setEventDetails(response.data);
         setuser(true);
       } catch (error) {
         console.error("Error fetching event details:", error);

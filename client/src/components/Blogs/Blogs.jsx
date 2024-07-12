@@ -88,7 +88,7 @@ const Blogs = () => {
         }
       });
       toast.success(response.data.message);
-      setBlogs((prevBlogs) => prevBlogs.map(blog => blog._id === blogId ? { ...blog, dislikes: blog.dislikes + 1, likes: blog.likes } : blog));
+      setBlogs((prevBlogs) => prevBlogs.map(blog => blog._id === blogId ? { ...blog, dislikes: blog.dislikes + 1, likes: blog.likes +1} : blog));
     } catch (error) {
       toast.error(error.response.data.message);
     }
