@@ -26,7 +26,7 @@ const userSchema = new mongoose.Schema(
     },
     username: {
       type: String,
-      unique: false,
+      unique: true,
       validate: validator.isAlphanumeric,
       sparse: true,
     },
