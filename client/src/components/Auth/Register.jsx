@@ -56,6 +56,7 @@ const Register = () => {
           withCredentials: true,
         }
       );
+      localStorage.setItem("token", data.token);
       toast.success(data.message);
       setFormData({
         firstname: "",
@@ -64,6 +65,7 @@ const Register = () => {
         password: "",
         role: "",
       });
+      
       setIsAuthorized(true);
     } catch (error) {
       toast.error(error.response?.data?.message || "Registration failed");
