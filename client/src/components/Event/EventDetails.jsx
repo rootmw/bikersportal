@@ -18,6 +18,7 @@ const EventDetails = () => {
     const fetchEventDetails = async () => {
       try {
         const token = localStorage.getItem('token');
+        console.log("Token from localStorage:", token); 
         if (!token) {
           toast.error("No token found. Please login.");
           navigate("/login");
