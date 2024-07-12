@@ -32,7 +32,7 @@ const EventDetails = () => {
           }
         });
         setEventDetails(response.data.event);
-        setUser(true);
+        setUser(response.data.user);
       } catch (error) {
         console.error("Error fetching event details:", error);
       }
