@@ -42,7 +42,7 @@ export const registerController = async (req, res, next) => {
       email,
       password,
       role,
-      username: username || undefined,
+      username: undefined,
     });
     const token = user.generateAuthToken();
     res.cookie("token", token, {
