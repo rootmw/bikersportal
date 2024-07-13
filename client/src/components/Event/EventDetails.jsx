@@ -15,7 +15,7 @@ const EventDetails = () => {
   const [updateData, setUpdateData] = useState({ eventname: '', eventdescription: '', eventdate: '', eventvenue: '', contact: '', maxParticipants: '' });
 
   useEffect(() => {
-    const fetchEventDetails = () => {
+    const fetchEventDetails =async () => {
       try {
         const token = localStorage.getItem('token');
         console.log("Token from localStorage:", token); 
@@ -24,7 +24,7 @@ const EventDetails = () => {
           navigate("/login");
           return;
         }
-        const response =  axios.get(`https://bikersportal-backend1.onrender.com/api/v1/event/${id}`, {
+        const response = await axios.get(`https://bikersportal-backend1.onrender.com/api/v1/event/${id}`, {
           headers: {
             'Authorization': `Bearer ${token}`,
             'Cache-Control': 'no-cache',
