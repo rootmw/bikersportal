@@ -7,7 +7,19 @@ const app = express();
 app.use(cookieParser());
 
 const userAuth = async (req, res, next) => {
-  const token = req.cookies.token;
+  let token;
+
+  // Check header first
+  if (
+    req.headers.authorization &&
+    req.headers.authorization.startsWith("Bearer")
+  ) {
+    token = req.headers.authorization.split(" ")[1];
+  } else if (req.cookies.token) {
+    // Fallback to checking cookie
+    token = req.cookies.token;
+  }
+
   if (!token) {
     return res.status(401).json({ message: "Not authorized, no token" });
   }
