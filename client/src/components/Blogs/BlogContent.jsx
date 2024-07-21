@@ -13,7 +13,7 @@ const BlogContent = () => {
     const fetchBlog = async () => {
       try {
         const token = localStorage.getItem('token');
-        const response = await axios.get(`https://bikersportal-backend1.onrender.com/api/v1/blog/blogs/${id}`, {
+        const response = await axios.get(`http://localhost:8080/api/v1/blog/blogs/${id}`, {
           headers: {
             'Authorization': `Bearer ${token}`,
             'Cache-Control': 'no-cache',

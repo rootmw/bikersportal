@@ -47,7 +47,7 @@ const Register = () => {
 
     try {
       const { data } = await axios.post(
-        "https://bikersportal-backend1.onrender.com/api/v1/auth/register",
+        "http://localhost:8080/api/v1/auth/register",
         formData,
         {
           headers: {

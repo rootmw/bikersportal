@@ -17,29 +17,33 @@ const EventDetails = () => {
   useEffect(() => {
     const fetchEventDetails =async () => {
       try {
-        const token = localStorage.getItem('token');
-        console.log("Token from localStorage:", token); 
+        const token = localStorage.getItem('token'); 
         if (!token) {
           toast.error("No token found. Please login.");
           navigate("/login");
           return;
         }
-        const response = await axios.get(`https://bikersportal-backend1.onrender.com/api/v1/event/${id}`, {
+        const {data} = await axios.get("http://localhost:8080/api/v1/profile/getprofile", {
           headers: {
-            'Authorization': `Bearer ${token}`,
-            'Cache-Control': 'no-cache',
-            'Expires': '0'
+            Authorization: `Bearer ${token}`,
+          },
+          withCredentials: true,
+        });
+        const response = await axios.get(`http://localhost:8080/api/v1/event/${id}`, {
+          headers: {
+            Authorization: `Bearer ${token}`,
           }
         });
         setEventDetails(response.data.event);
-        setUser(response.data.user);
+        setUser(data.user);
       } catch (error) {
         console.error("Error fetching event details:", error);
       }
     };
 
     fetchEventDetails();
-  }, [id, setUser, navigate]);
+  }, [id, setUser]);
+  console.log(user)
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -55,11 +59,9 @@ const EventDetails = () => {
     e.preventDefault();
     try {
       const token = localStorage.getItem('token');
-      const response = await axios.post(`https://bikersportal-backend1.onrender.com/api/v1/event/${id}/join`, formData, {
+      const response = await axios.post(`http://localhost:8080/api/v1/event/${id}/join`, formData, {
         headers: {
-          'Authorization': `Bearer ${token}`,
-          'Cache-Control': 'no-cache',
-          'Expires': '0'
+          Authorization: `Bearer ${token}`,
         }
       });
       toast.success(response.data.message);
@@ -77,11 +79,9 @@ const EventDetails = () => {
     e.preventDefault();
     try {
       const token = localStorage.getItem('token');
-      const response = await axios.put(`https://bikersportal-backend1.onrender.com/api/v1/event/update/${id}`, updateData, {
+      const response = await axios.put(`http://localhost:8080/api/v1/event/update/${id}`, updateData, {
         headers: {
-          'Authorization': `Bearer ${token}`,
-          'Cache-Control': 'no-cache',
-          'Expires': '0'
+          Authorization: `Bearer ${token}`,
         }
       });
       toast.success(response.data.message);
@@ -95,11 +95,9 @@ const EventDetails = () => {
   const handleDelete = async () => {
     try {
       const token = localStorage.getItem('token');
-      const response = await axios.delete(`https://bikersportal-backend1.onrender.com/api/v1/event/delete/${id}`, {
+      const response = await axios.delete(`http://localhost:8080/api/v1/event/delete/${id}`, {
         headers: {
-          'Authorization': `Bearer ${token}`,
-          'Cache-Control': 'no-cache',
-          'Expires': '0'
+          Authorization: `Bearer ${token}`,
         }
       });
       toast.success(response.data.message);

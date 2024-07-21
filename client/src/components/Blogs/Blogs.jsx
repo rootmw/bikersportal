@@ -2,11 +2,12 @@ import React, { useEffect, useState, useContext } from "react";
 import axios from "axios";
 import { toast } from 'react-hot-toast';
 import { Context } from "../..";
-import { Link } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faThumbsUp, faThumbsDown } from '@fortawesome/free-solid-svg-icons';
 
 const Blogs = () => {
+  const { id } = useParams();
   const [blogs, setBlogs] = useState([]);
   const [showForm, setShowForm] = useState(false);
   const [formData, setFormData] = useState({ title: '', content: '' });
@@ -15,9 +16,11 @@ const Blogs = () => {
   useEffect(() => {
     const fetchBlogs = async () => {
       try {
-        const response = await axios.get('https://bikersportal-backend1.onrender.com/api/v1/blog/blogs', {
+        const token= localStorage.getItem('token')
+        const response = await axios.get('http://localhost:8080/api/v1/blog/blogs', {
           withCredentials: true,
           headers: {
+            Authorization: `Bearer ${token}`,
             'Cache-Control': 'no-cache',
             'pragma': 'no-cache',
             'Expires': '0'
@@ -44,9 +47,11 @@ const Blogs = () => {
   const handlePost = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.post('https://bikersportal-backend1.onrender.com/api/v1/blog/blogs', formData, {
+      const token= localStorage.getItem('token')
+      const response = await axios.post('http://localhost:8080/api/v1/blog/blogs', formData, {
         withCredentials: true,
         headers: {
+          Authorization: `Bearer ${token}`,
           'Cache-Control': 'no-cache',
           'pragma': 'no-cache',
           'Expires': '0'
@@ -62,9 +67,11 @@ const Blogs = () => {
 
   const handleLike = async (blogId) => {
     try {
-      const response = await axios.post(`https://bikersportal-backend1.onrender.com/api/v1/blog/blogs/${blogId}/like`, {}, {
+      const token= localStorage.getItem('token')
+      const response = await axios.post(`http://localhost:8080/api/v1/blog/blogs/${blogId}/like`, {}, {
         withCredentials: true,
         headers: {
+          Authorization: `Bearer ${token}`,
           'Cache-Control': 'no-cache',
           'pragma': 'no-cache',
           'Expires': '0'
@@ -79,9 +86,11 @@ const Blogs = () => {
 
   const handleDislike = async (blogId) => {
     try {
-      const response = await axios.post(`https://bikersportal-backend1.onrender.com/api/v1/blog/blogs/${blogId}/dislike`, {}, {
+      const token= localStorage.getItem('token')
+      const response = await axios.post(`http://localhost:8080/api/v1/blog/blogs/${blogId}/dislike`, {}, {
         withCredentials: true,
         headers: {
+          Authorization: `Bearer ${token}`,
           'Cache-Control': 'no-cache',
           'pragma': 'no-cache',
           'Expires': '0'

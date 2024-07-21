@@ -11,7 +11,7 @@ const MyEvents = () => {
     const fetchMyEvents = async () => {
       try {
         const token = localStorage.getItem("token");
-        const response = await axios.get("https://bikersportal-backend1.onrender.com/api/v1/event/me", {
+        const response = await axios.get("http://localhost:8080/api/v1/event/me", {
           headers: {
             'Authorization':`Bearer ${token}`,
             'Cache-Control': 'no-cache',

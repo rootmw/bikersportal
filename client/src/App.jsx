@@ -30,12 +30,13 @@ const App = () => {
     if (token) {
       const fetchUser = async () => {
         try {
-          const response = await axios.get("https://bikersportal-backend1.onrender.com/api/v1/profile/getprofile", {
+          const response = await axios.get("http://localhost:3000/api/v1/profile/getprofile", {
             headers: {
               Authorization: `Bearer ${token}`,
             },
             withCredentials: true,
           });
+          console.log(response.data);
           setUser(response.data.user);
           setIsAuthorized(true);
         } catch (error) {

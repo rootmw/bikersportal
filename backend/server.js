@@ -3,7 +3,6 @@ import express from "express";
 import dotenv from "dotenv";
 import "express-async-errors";
 import cors from "cors";
-//import morgan from "morgan";
 
 //files
 import connectDB from "./config/db.js";
@@ -27,7 +26,7 @@ connectDB();
 const app = express();
 app.use(
   cors({
-    origin: "https://bikersportal-frontend.onrender.com",
+    origin: "http://localhost:3000",
     credentials: true,
   })
 );
@@ -50,7 +49,7 @@ app.use("/api/v1/blog", blogRoutes);
 app.use(userAuth);
 app.use(errorMiddleware);
 
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT || 8080;
 app.listen(PORT, () => {
   console.log(`node server running on port ${PORT}`);
 });

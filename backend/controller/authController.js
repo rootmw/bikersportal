@@ -2,7 +2,18 @@ import userModel from "../models/userModel.js";
 import jwt from "jsonwebtoken";
 
 export const registerController = async (req, res, next) => {
-  const { firstname, lastname, email, password, role } = req.body;
+  const {
+    firstname,
+    lastname,
+    email,
+    password,
+    role,
+    bio,
+    username,
+    age,
+    mobile_No,
+    address,
+  } = req.body;
 
   // Validate
   if (!firstname) {
@@ -42,12 +53,18 @@ export const registerController = async (req, res, next) => {
       email,
       password,
       role,
+      username,
+      age,
+      mobile_No,
+      bio,
+      address,
     });
     const token = user.generateAuthToken();
     res.cookie("token", token, {
       httpOnly: false,
       secure: process.env.NODE_ENV === "production", // use secure cookies in production
-      sameSite: "None",
+      // secure: false,
+      sameSite: "lax",
       maxAge: 24 * 60 * 60 * 1000, // 1 day
     });
     res.status(201).send({
@@ -58,6 +75,11 @@ export const registerController = async (req, res, next) => {
         lastname: user.lastname,
         email: user.email,
         role: user.role,
+        username: user.username,
+        age: user.age,
+        mobile_No: user.mobile_No,
+        bio: user.bio,
+        address: user.address,
       },
       token,
     });
@@ -90,13 +112,18 @@ export const loginController = async (req, res, next) => {
     res.cookie("token", token, {
       httpOnly: false,
       secure: process.env.NODE_ENV === "production", // use secure cookies in production
-      sameSite: "None",
+      // secure: false,
+      sameSite: "lax",
       maxAge: 24 * 60 * 60 * 1000, // 1 day
     });
     res.status(200).json({
       success: true,
       message: "Login successfully",
-      user,
+      // user,
+      _id: user._id,
+      name: user.name,
+      email: user.email,
+      role: user.role,
       token,
     });
   } catch (error) {

@@ -3,9 +3,7 @@ import ReactDOM from "react-dom/client";
 import App from "./App.jsx";
 import "./index.css";
 
-export const Context = createContext({
-  isAuthorized: false,
-});
+export const Context = createContext();
 
 const AppProvider = ({ children }) => {
   const [isAuthorized, setIsAuthorized] = useState(false);
@@ -20,7 +18,9 @@ const AppProvider = ({ children }) => {
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
-  <AppProvider>
-    <App />
-  </AppProvider>
+  <React.StrictMode>
+    <AppProvider>
+      <App />
+    </AppProvider>
+  </React.StrictMode>
 );

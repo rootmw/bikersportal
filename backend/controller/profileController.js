@@ -4,7 +4,9 @@ export const getProfile = async (req, res, next) => {
   try {
     const user = await userModel.findById(req.user._id).select("-password");
     if (!user) {
-      return res.status(404).json({ message: "User not found" });
+      return res
+        .status(404)
+        .json({ success: false, message: "User not found" });
     }
     res.status(200).json({ success: true, user });
   } catch (error) {
@@ -36,16 +38,14 @@ export const updateProfile = async (req, res, next) => {
     if (!user) {
       return res.status(404).json({ message: "User not found" });
     }
-    const token = user.generateAuthToken();
     res.status(200).json({
       success: true,
       message: "Profile updated successfully",
       user,
-      token,
     });
   } catch (error) {
     next(error);
   }
 };
 
-export default { getProfile, updateProfile };
+//export default { getProfile, updateProfile };

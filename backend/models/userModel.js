@@ -34,7 +34,7 @@ const userSchema = new mongoose.Schema(
       type: Number,
     },
     mobile_No: {
-      type: Number,
+      type: String,
     },
     address: {
       type: String,
@@ -66,7 +66,7 @@ userSchema.methods.generateAuthToken = function () {
     role: this.role,
     username: this.username,
   };
-  return JWT.sign(tokenData, process.env.JWT_SECRET, { expiresIn: "1y" });
+  return JWT.sign(tokenData, process.env.JWT_SECRET, { expiresIn: "30d" });
 };
 
 export default mongoose.model("User", userSchema);

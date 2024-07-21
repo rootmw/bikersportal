@@ -11,13 +11,15 @@ const GetProfile = () => {
   useEffect(() => {
     const fetchProfile = async () => {
       try {
-        const {data} = await axios.get("https://bikersportal-backend1.onrender.com/api/v1/profile/getprofile", {
+        const token = localStorage.getItem('token')
+        const {data} = await axios.get("http://localhost:8080/api/v1/profile/getprofile", {
           headers: {
-            Authorization: `Bearer ${localStorage.getItem('token')}`,
+            Authorization: `Bearer ${token}`,
           },
           withCredentials: true,
         });
         setUser(data.user);
+        console.log(data.user)
       } catch (error) {
         toast.error(error.response.data.message);
       } finally {

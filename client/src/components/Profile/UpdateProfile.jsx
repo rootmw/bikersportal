@@ -36,19 +36,15 @@ const UpdateProfile = () => {
     e.preventDefault();
     setLoading(true);
 
-    const form = new FormData();
-    Object.keys(formData).forEach((key) => {
-      form.append(key, formData[key]);
-    });
 
     try {
+      const token= localStorage.getItem('token')
       const response = await axios.put(
-        "https://bikersportal-backend1.onrender.com/api/v1/profile/updateprofile",
-        form,
+        "http://localhost:8080/api/v1/profile/updateprofile",
+        formData,
         {
           headers: {
-            "Content-Type": "multipart/form-data",
-            Authorization: `Bearer ${localStorage.getItem('token')}`,
+            Authorization: `Bearer ${token}`,
           },
           withCredentials: true,
         }
