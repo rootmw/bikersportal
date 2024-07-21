@@ -42,7 +42,7 @@ const EventDetails = () => {
     };
 
     fetchEventDetails();
-  }, [id, setUser]);
+  }, [id, setUser, navigate]);
   console.log(user)
 
   const handleChange = (e) => {
