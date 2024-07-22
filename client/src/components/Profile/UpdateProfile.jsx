@@ -40,7 +40,7 @@ const UpdateProfile = () => {
     try {
       const token= localStorage.getItem('token')
       const response = await axios.put(
-        "http://localhost:8080/api/v1/profile/updateprofile",
+        "https://bikersportal-backend1.onrender.com/api/v1/profile/updateprofile",
         formData,
         {
           headers: {

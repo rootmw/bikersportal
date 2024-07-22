@@ -11,8 +11,8 @@ const HeroSection = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const eventResponse = await axios.get("http://localhost:8080/api/v1/event/count");
-        const locationResponse = await axios.get("http://localhost:8080/api/v1/location/count");
+        const eventResponse = await axios.get("https://bikersportal-backend1.onrender.com/api/v1/event/count");
+        const locationResponse = await axios.get("https://bikersportal-backend1.onrender.com/api/v1/location/count");
         setEventCount(eventResponse.data.count);
         setLocationCount(locationResponse.data.count);
       } catch (error) {

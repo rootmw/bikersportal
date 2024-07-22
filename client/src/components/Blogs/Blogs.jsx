@@ -17,7 +17,7 @@ const Blogs = () => {
     const fetchBlogs = async () => {
       try {
         const token= localStorage.getItem('token')
-        const response = await axios.get('http://localhost:8080/api/v1/blog/blogs', {
+        const response = await axios.get('https://bikersportal-backend1.onrender.com/api/v1/blog/blogs', {
           withCredentials: true,
           headers: {
             Authorization: `Bearer ${token}`,
@@ -48,7 +48,7 @@ const Blogs = () => {
     e.preventDefault();
     try {
       const token= localStorage.getItem('token')
-      const response = await axios.post('http://localhost:8080/api/v1/blog/blogs', formData, {
+      const response = await axios.post('https://bikersportal-backend1.onrender.com/api/v1/blog/blogs', formData, {
         withCredentials: true,
         headers: {
           Authorization: `Bearer ${token}`,
@@ -68,7 +68,7 @@ const Blogs = () => {
   const handleLike = async (blogId) => {
     try {
       const token= localStorage.getItem('token')
-      const response = await axios.post(`http://localhost:8080/api/v1/blog/blogs/${blogId}/like`, {}, {
+      const response = await axios.post(`https://bikersportal-backend1.onrender.com/api/v1/blog/blogs/${blogId}/like`, {}, {
         withCredentials: true,
         headers: {
           Authorization: `Bearer ${token}`,
@@ -87,7 +87,7 @@ const Blogs = () => {
   const handleDislike = async (blogId) => {
     try {
       const token= localStorage.getItem('token')
-      const response = await axios.post(`http://localhost:8080/api/v1/blog/blogs/${blogId}/dislike`, {}, {
+      const response = await axios.post(`https://bikersportal-backend1.onrender.com/api/v1/blog/blogs/${blogId}/dislike`, {}, {
         withCredentials: true,
         headers: {
           Authorization: `Bearer ${token}`,
